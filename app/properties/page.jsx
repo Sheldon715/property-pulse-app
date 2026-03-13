@@ -1,8 +1,8 @@
 import PropertyCard from "@/components/PropertyCard";
 import connectDB from "@/config/database";
-import Property from "@/models/Property"
+import Property from "@/models/Property";
 
-const PropertiesPage = async () => {
+const PropertiesPage = async ({ searchParams }) => {
   await connectDB();
   const properties = await Property.find({}).lean();
 
