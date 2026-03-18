@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -16,6 +16,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [providers, setProviders] = useState(null);
+  const profileMenuRef = useRef(null);
 
   const pathname = usePathname();
 
@@ -27,6 +28,18 @@ const Navbar = () => {
 
     setAuthProviders();
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!isProfileMenuOpen) return;
+      if (profileMenuRef.current && !profileMenuRef.current.contains(e.target)) {
+        setIsProfileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isProfileMenuOpen]);
 
   return (
     <nav className="bg-blue-700 border-b border-blue-500">
@@ -150,7 +163,7 @@ const Navbar = () => {
                 <UnreadMessageCount />
               </Link>
               {/* <!-- Profile dropdown button --> */}
-              <div className="relative ml-3">
+              <div className="relative ml-3" ref={profileMenuRef}>
                 <div>
                   <button
                     type="button"
@@ -198,6 +211,7 @@ const Navbar = () => {
                       role="menuitem"
                       tabIndex="-1"
                       id="user-menu-item-2"
+                      onClick={() => setIsProfileMenuOpen(false)}
                     >
                       Saved Properties
                     </Link>
