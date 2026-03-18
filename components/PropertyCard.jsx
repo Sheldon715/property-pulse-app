@@ -22,16 +22,16 @@ const PropertyCard = ({ property }) => {
 
   return (
     <div className="rounded-xl shadow-md relative">
-      <Link
-        href={`/properties/${property._id}`} >
-        <Image
-          src={property.images[0]}
-          alt=""
-          width="0"
-          height="0"
-          sizes="100vw"
-          className="w-full h-auto rounded-t-xl"
-        />
+      <Link href={`/properties/${property._id}`}>
+        <div className="relative w-full aspect-[16/9]">
+          <Image
+            src={property.images[0]}
+            alt=""
+            fill
+            sizes="(min-width: 768px) 33vw, 100vw"
+            className="object-cover rounded-t-xl"
+          />
+        </div>
       </Link>
       <div className="p-4">
         <div className="text-left md:text-center lg:text-left mb-6">
