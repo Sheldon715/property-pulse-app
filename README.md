@@ -1,4 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PropertyPulse
+
+A full-stack property listing platform built with **Next.js 14**. It supports **Google authentication**, **property bookmarks (saved listings)**, **image uploads via Cloudinary**, **interactive maps/geocoding**, and a **contact form** that sends messages to property owners/managers (stored in MongoDB).
+
+## Live Demo
+
+- **Vercel**: https://property-pulse-app-snowy.vercel.app/
+
+## Screenshots (optional, recommended)
+
+Screenshots live in `public/screenshots/`:
+
+- `home.png`
+- `property-details.png`
+- `saved-properties.png`
+- `messages.png`
+
+## Features
+
+- **Authentication**: Google OAuth login via NextAuth
+- **Property listings**: browse listings + listing details
+- **Bookmarks / Saved properties**: save & remove saved listings (per-user)
+- **Contact form (Messages)**: authenticated users can message the property owner/manager
+- **Images**: upload and serve property images using Cloudinary
+- **Maps & geocoding**: MapTiler + OpenCage for map display and address → coordinates
+- **Deployment**: designed to deploy on Vercel
+
+## Tech Stack
+
+- **Frontend / Fullstack**: Next.js 14 (App Router), React 18
+- **Auth**: NextAuth (Google provider)
+- **Database**: MongoDB + Mongoose
+- **Images**: Cloudinary
+- **Maps/Geocoding**: MapTiler, OpenCage
+- **UI/UX**: Tailwind CSS, React Toastify, PhotoSwipe
+
+## Architecture Notes
+
+- **Bookmarks (Saved Properties)** are stored on the `User` document (a `bookmarks` array of property IDs).
+- **Contact Form** submits a message and stores it in MongoDB (`Message` model) so the owner can view messages in-app (instead of sending emails).
+- This project uses **Next.js Server Actions** for some mutations (e.g. bookmark toggling, sending messages).
 
 ## Getting Started
 
@@ -14,23 +54,25 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Deployment (Vercel)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Push the project to GitHub (or import the folder into a repository).
+2. Create a new project on Vercel and import the repository.
+3. In **Vercel → Project Settings → Environment Variables**, add all variables listed in the `.env.local` section.
+4. Deploy.
 
-## Learn More
+### Notes for production
 
-To learn more about Next.js, take a look at the following resources:
+- Set `NEXTAUTH_URL` to your Vercel production URL (e.g. `https://<your-app>.vercel.app`).
+- Update `NEXT_PUBLIC_DOMAIN` to match the deployed domain (used for share links).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+npm run dev     # start dev server
+npm run build   # build for production
+npm run start   # start production server
+npm run lint    # run linter
+```
