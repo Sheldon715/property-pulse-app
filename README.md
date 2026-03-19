@@ -6,14 +6,6 @@ A full-stack property listing platform built with **Next.js 14**. It supports **
 
 - **Vercel**: https://property-pulse-app-snowy.vercel.app/
 
-## Screenshots (optional, recommended)
-
-Screenshots live in `public/screenshots/`:
-
-- `home.png`
-- `property-details.png`
-- `saved-properties.png`
-- `messages.png`
 
 ## Features
 
